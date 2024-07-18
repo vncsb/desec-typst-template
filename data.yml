@@ -1,0 +1,58 @@
+---
+companyName: 'Evil Corp'
+startDate:
+  year: 2024
+  month: 7
+  day: 16
+endDate:
+  year: 2024
+  month: 7
+  day: 20
+scope:
+  - id: '172.16.1.1'
+    type: 'Blackbox'
+  - id: '172.16.1.2'
+    type: 'Blackbox'
+vulnerabilities:
+  - location: '172.16.1.1'
+    system: 'Webmin'
+    cve: 'CVE-2006-3392'
+    severity: 'Critical'
+    description: 'A versão do webmin...'
+    impact: 'A falha permite...'
+    recommendations:
+      - 'zxcv'
+      - 'zxcv'
+    references:
+      - 'ausdhf'
+      - 'eiru'
+    relatedProblems:
+      - '1'
+  - location: '172.16.1.1'
+    system: 'Webmin'
+    cve: 'CVE-2006-3392'
+    severity: 'Critical'
+    description: 'A versão do webmin...'
+    impact: 'A falha permite...'
+    recommendations:
+      - 'zxcv'
+      - 'zxcv'
+    references:
+      - 'ausdhf'
+      - 'eiru'
+    relatedProblems:
+      - '2'
+  - location: '172.16.1.2'
+    system: 'RH'
+    cve: 'CVE-2005-3131'
+    severity: 'High'
+    description: 'Deu tudo errado nessa merda'
+    impact: 'Impactou muito esssa porra do caralho'
+    recommendations:
+      - 'faça essa merda'
+      - 'falando pra fazer'
+    references:
+      - 'olha aqui'
+      - 'aqui explica'
+    relatedProblems:
+      - '3'
