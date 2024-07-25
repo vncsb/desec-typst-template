@@ -16,7 +16,7 @@ scope:
 vulnerabilities:
   - location: '172.16.1.1'
     system: 'Webmin'
-    cve: 'CVE-2006-3392'
+    id: 'CVE-2006-3392'
     severity: 'Critical'
     description: 'A versão do webmin...'
     impact: 'A falha permite...'
@@ -26,11 +26,11 @@ vulnerabilities:
     references:
       - 'ausdhf'
       - 'eiru'
-    relatedProblems:
+    problems:
       - '1'
   - location: '172.16.1.1'
     system: 'Webmin'
-    cve: 'CVE-2006-3392'
+    id: 'CVE-2006-3392'
     severity: 'Critical'
     description: 'A versão do webmin...'
     impact: 'A falha permite...'
@@ -40,11 +40,11 @@ vulnerabilities:
     references:
       - 'ausdhf'
       - 'eiru'
-    relatedProblems:
+    problems:
       - '2'
   - location: '172.16.1.2'
     system: 'RH'
-    cve: 'CVE-2005-3131'
+    id: 'CVE-2005-3131'
     severity: 'High'
     description: 'Deu tudo errado nessa merda'
     impact: 'Impactou muito esssa porra do caralho'
@@ -54,5 +54,5 @@ vulnerabilities:
     references:
       - 'olha aqui'
       - 'aqui explica'
-    relatedProblems:
+    problems:
       - '3'

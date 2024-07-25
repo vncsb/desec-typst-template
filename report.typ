@@ -165,7 +165,7 @@ A tabela abaixo resume as principais vulnerabilidades e riscos encontrados duran
           columns: (auto, 1fr),
           align: left + horizon,
           [Descrição], vuln.description,
-          [CVE], vuln.cve,
+          [CVE], vuln.id,
           [Risco], severityMap.at(vuln.severity),
           [Impacto], vuln.impact,
           [Sistema], [#vuln.system \@ #vuln.location],
@@ -192,8 +192,7 @@ O método utilizado para a execução do serviço proposto segue rigorosamente a
   table(
     columns: (1fr, 1fr),
     [TIPO DE AVALIAÇÃO], [DETALHES],
-    [Pentest Black Box Externo], [172.16.1.116],
-    [Pentest Black Box Externo], [172.16.1.195],
+    ..data.scope.map(s => s.type), ..data.scope.map(s => s.id)
   ),
 )
 
@@ -267,44 +266,38 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
 #pagebreak()
 #align(center)[= Vulnerabilidades e Recomendações]
 \
-#let vulnBySystem = (:)
-#{
-  let systems = vulnerabilities.map(vuln => vuln.system).dedup()
-  for sys in systems {
-    let systemVulns = vulnerabilities.filter(vuln => vuln.system == sys).flatten()
-    vulnBySystem.insert(sys, systemVulns)
-  }
-}
-
-#for (system, vulns) in vulnBySystem {
-  let problems = vulns.map(v => v.relatedProblems).flatten()
-  let recommendations = vulns.map(v => v.recommendations).flatten()
+#let vulnBySystem = vulnerabilities.sorted(key: vuln => vuln.system)
+#for vuln in vulnerabilities {
+  v-header(
+    table(
+      columns: (0.2fr, 1fr),
+      align: left + horizon,
+      [Host], [#vuln.system - #vuln.location],
+    ),
+  )
 
   v-header(
     table(
       columns: (0.2fr, 1fr),
-      [Host], [#system - #vulns.at(0).location],
+      align: left + horizon,
+      [Descrição], vuln.description,
+      [Risco], severityMap.at(vuln.severity),
+      [Impacto], vuln.impact,
+      [Sistema], vuln.location,
+      [Referências], list(marker: none, ..vuln.references),
     ),
   )
 
-  for vuln in vulns {
-    v-header(
-      table(
-        columns: (0.2fr, 1fr),
-        [Descrição], vuln.description,
-        [Risco], severityMap.at(vuln.severity),
-        [Impacto], vuln.impact,
-        [Sistema], vuln.location,
-        [Referências], list(marker: none, ..vuln.references),
-      ),
-    )
+  if vuln.problems.len() > 0 {
+    [= Problemas]
+    enum(..vuln.problems)
   }
 
-  [= Problemas]
-  enum(..problems)
+  if vuln.recommendations.len() > 0 {
+    [= Recomendações]
+    enum(..vuln.recommendations)
+  }
 
-  [= Recomendações]
-  enum(..recommendations)
   pagebreak()
 }
 \
