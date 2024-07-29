@@ -309,12 +309,12 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
     ),
   )
 
-  if vuln.problems.len() > 0 {
+  if vuln.at("problems", default: none) != none {
     [= Problemas]
     enum(..vuln.problems)
   }
 
-  if vuln.recommendations.len() > 0 {
+  if vuln.at("recommendations", default: none) != none {
     [= Recomendações]
     enum(..vuln.recommendations)
   }
