@@ -25,6 +25,22 @@
 #show link: underline
 #set raw(align: center)
 
+#let terminal(command, caption: "Comando executado no terminal:") = {
+  figure(
+    block(
+      fill: luma(240),
+      inset: 10pt,
+      radius: 4pt,
+    )[
+      #raw(command, lang: "bash")
+    ],
+    caption: figure.caption(position: top)[
+      #text(caption, size: 10pt, style: "italic")
+    ],
+    supplement: none,
+  )
+}
+
 #show raw.where(block: false): box.with(
   fill: luma(240),
   inset: (x: 3pt, y: 0pt),
