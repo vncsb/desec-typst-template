@@ -300,7 +300,12 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
       [Risco], severityMap.at(vuln.severity),
       [Impacto], vuln.impact,
       [Sistema], vuln.location,
-      [Referências], list(marker: none, ..vuln.references),
+      [Referências],
+      [
+        #for ref in vuln.references [
+          #link(ref)\
+        ]
+      ],
     ),
   )
 
