@@ -22,10 +22,16 @@
 #let longStartDate = fmt-date(startDate, locale: "pt-BR", length: "long")
 #let longEndDate = fmt-date(endDate, locale: "pt-BR", length: "long")
 
-#show link: underline
-#set raw(align: center)
+#show ref: it => underline(
+  smallcaps(text(font: "New Computer Modern", fill: blue, it)),
+)
+#show link: it => underline(text(fill: blue, it))
 
-#let terminal(command, caption: "Comando executado no terminal:") = {
+#show figure.where(kind: image): set figure(supplement: "Imagem")
+#show figure.where(kind: raw): set figure(supplement: "Registro")
+#show figure.caption: set text(font: "New Computer Modern", size: 10pt)
+
+#let terminal(command, caption) = {
   figure(
     block(
       fill: luma(240),
@@ -34,11 +40,29 @@
     )[
       #raw(command, lang: "bash")
     ],
-    caption: figure.caption(position: top)[
-      #text(caption, size: 10pt, style: "italic")
-    ],
-    supplement: none,
+    kind: "terminal",
+    supplement: "Comando",
+    caption: caption,
   )
+}
+
+#let evidence(path, description) = {
+  let filename = path.split("/").last()
+  let evidence-label = filename.split(".").first()
+  let origin-label = "origin-" + evidence-label
+  let origin = link(label(origin-label))[Origem]
+  let caption = description + " | " + origin
+
+  return [
+    #figure(
+      [
+        #image(path, width: 80%)
+      ],
+      caption: caption,
+      kind: "evidence",
+      supplement: "Evidência",
+    ) #label(evidence-label)
+  ]
 }
 
 #show raw.where(block: false): box.with(
@@ -55,8 +79,8 @@
   )[#code]
 ]
 
-#set enum(numbering: "1)")
-#set text(font: "Arial", size: 12pt)
+#set enum(numbering: "1.a)", full: true)
+#set text(lang: "pt", font: "Arial", size: 12pt)
 #set page(
   paper: "us-letter",
   margin: (top: 3cm, left: 2cm, right: 2cm, bottom: 2cm),
@@ -208,7 +232,7 @@ O método utilizado para a execução do serviço proposto segue rigorosamente a
   table(
     columns: (1fr, 1fr),
     [TIPO DE AVALIAÇÃO], [DETALHES],
-    ..data.scope.map(s => s.type), ..data.scope.map(s => s.id)
+    ..data.scope.map(s => (s.type, s.id)).flatten(),
   ),
 )
 
@@ -296,6 +320,7 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
     table(
       columns: (0.2fr, 1fr),
       align: left + horizon,
+      [Identificação], vuln.id,
       [Descrição], vuln.description,
       [Risco], severityMap.at(vuln.severity),
       [Impacto], vuln.impact,
@@ -322,6 +347,8 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
   pagebreak()
 }
 \
+= Evidências
+....
 
 = Considerações Finais
 \
@@ -332,3 +359,4 @@ Podemos concluir que a avaliação de segurança como o *teste de invasão* apre
 Após a CONTRATANTE aplicar todas as correções sugeridas faremos um reteste nas vulnerabilidades apresentadas para comprovar que os problemas foram devidamente resolvidos.
 
 Desde já agradecemos a #data.companyName pela oportunidade em oferecer nossos serviços de segurança ofensiva.
+

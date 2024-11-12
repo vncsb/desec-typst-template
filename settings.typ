@@ -4,6 +4,7 @@
 #let high-color = rgb("#ed7d31")
 #let medium-color = yellow
 #let low-color = green
+#let disabledColor = gray
 
 #let criticalCell = table.cell(
   fill: critical-color,
@@ -21,12 +22,17 @@
   fill: low-color,
   text(fill: white)[Baixo],
 )
+#let notApplicableCell = table.cell(
+  fill: disabledColor,
+  text(fill: black)[N/A]
+)
 
 #let severityMap = (
   Critical: criticalCell,
   High: highCell,
   Medium: mediumCell,
   Low: lowCell,
+  NotApplicable: notApplicableCell
 )
 
 #let severityOrder = (
@@ -34,4 +40,5 @@
   High: 1,
   Medium: 2,
   Low: 3,
+  NotApplicable: 4
 )
