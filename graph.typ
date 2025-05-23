@@ -1,4 +1,5 @@
-#import "@preview/cetz:0.2.2"
+#import "@preview/cetz:0.3.4"
+#import "@preview/cetz-plot:0.1.1": chart
 #import "settings.typ": low-color, medium-color, high-color, critical-color
 
 #let barColors = cetz.palette.new(colors: (
@@ -47,14 +48,13 @@
     #cetz.canvas(
       length: 4cm,
       {
-        import cetz.chart
         chart.columnchart(
           size: (4, 1.5),
           mode: "stacked",
           value-key: (1, 2, 3, 4),
           y-tick-step: 1,
           bar-style: barColors,
-          legend: "legend.south",
+          legend: "south",
           legend-style: (
             orientation: ltr,
             spacing: 0.15,

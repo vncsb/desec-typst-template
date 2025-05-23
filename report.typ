@@ -80,7 +80,7 @@
 ]
 
 #set enum(numbering: "1.a)", full: true)
-#set text(lang: "pt", font: "Arial", size: 12pt)
+#set text(lang: "pt", font: "Liberation Sans", size: 12pt)
 #set page(
   paper: "us-letter",
   margin: (top: 3cm, left: 2cm, right: 2cm, bottom: 2cm),
