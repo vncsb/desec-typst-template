@@ -46,23 +46,33 @@
   )
 }
 
-#let evidence(path, description) = {
+#let evidences = state("evidences", ())
+#let add-evidence(path, description) = {
   let filename = path.split("/").last()
-  let evidence-label = filename.split(".").first()
-  let origin-label = "origin-" + evidence-label
-  let origin = link(label(origin-label))[Origem]
-  let caption = description + " | " + origin
+  let evidence-name = filename.split(".").first()
+  let origin-name = "origin-" + evidence-name
 
-  return [
-    #figure(
-      [
-        #image(path, width: 80%)
-      ],
-      caption: caption,
-      kind: "evidence",
-      supplement: "Evidência",
-    ) #label(evidence-label)
-  ]
+  let evidence-label = label(evidence-name)
+  let origin-label = label(origin-name)
+  let origin-link = link(origin-label)[Origem]
+  let caption = description + " | " + origin-link
+
+  evidences.update(e => {
+    e.push([
+      #figure(
+        [
+          #image(path, width: 80%)
+        ],
+        caption: caption,
+        kind: "evidence",
+        supplement: "Evidência",
+      ) #evidence-label
+    ])
+
+    return e
+  })
+
+  [ #ref(evidence-label) #origin-label ]
 }
 
 #show raw.where(block: false): box.with(
@@ -348,7 +358,9 @@ Os testes iniciaram no dia #shortStartDate de posse apenas dos endereços inform
 }
 \
 = Evidências
-....
+#context for ev in evidences.final() {
+  ev
+}
 
 = Considerações Finais
 \
